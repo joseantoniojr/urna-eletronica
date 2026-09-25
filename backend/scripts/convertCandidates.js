@@ -9,3 +9,8 @@ const __dirname = path.dirname(__filename);
 const filePath = path.join(__dirname, "../data/consulta_cand_2026_BRASIL.csv");
 
 const csv = fs.readFileSync(filePath, "latin1");
+
+const records = parse(csv, {
+	columns: true,
+	delimiter: ";",
+});
