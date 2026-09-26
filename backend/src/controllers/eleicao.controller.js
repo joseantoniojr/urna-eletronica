@@ -1,6 +1,8 @@
 import {
 	buscarOrdemVotacao,
+	buscarVotosBrancos,
 	buscarVotosCandidato,
+	buscarVotosNulos,
 	iniciarVotacaoService,
 	obterCargoAtual,
 	obterProximoCargo,
@@ -84,6 +86,18 @@ function buscarVotosCandidatoController(req, res) {
 	res.json(votos);
 }
 
+function buscarVotosNulosController(req, res) {
+	const votosNulos = buscarVotosNulos();
+
+	res.json(votosNulos);
+}
+
+function buscarVotosBrancosController(req, res) {
+	const votosBrancos = buscarVotosBrancos();
+
+	res.json(votosBrancos);
+}
+
 export {
 	listarOrdemVotacao,
 	cargoAtual,
@@ -93,4 +107,6 @@ export {
 	buscarVotosCandidatoController,
 	registrarVotoNuloController,
 	registrarVotoBrancoController,
+	buscarVotosNulosController,
+	buscarVotosBrancosController,
 };

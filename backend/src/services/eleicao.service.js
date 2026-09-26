@@ -74,13 +74,23 @@ function buscarVotosCandidato(sqCandidato) {
 	return votos.get(sqCandidato) ?? 0;
 }
 
+function buscarVotosNulos() {
+	return votosNulos;
+}
+
+function buscarVotosBrancos() {
+	return votosBrancos;
+}
+
 export {
 	buscarOrdemVotacao,
 	obterCargoAtual,
 	obterProximoCargo,
 	iniciarVotacaoService,
 	registrarVoto,
-	buscarVotosCandidato,
 	registrarVotoNulo,
 	registrarVotoBranco,
+	buscarVotosCandidato,
+	buscarVotosNulos,
+	buscarVotosBrancos,
 };
