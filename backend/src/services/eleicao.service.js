@@ -15,4 +15,14 @@ function buscarOrdemVotacao(uf) {
 	return ordemVotacao;
 }
 
-export default buscarOrdemVotacao;
+function obterCargoAtual(uf, index) {
+	const cargosOrdemVotacao = buscarOrdemVotacao(uf);
+
+	if (index < 0 || index >= cargosOrdemVotacao.length) {
+		throw new Error("Esse cargo não existe");
+	}
+
+	return cargosOrdemVotacao[index];
+}
+
+export { buscarOrdemVotacao, obterCargoAtual };
