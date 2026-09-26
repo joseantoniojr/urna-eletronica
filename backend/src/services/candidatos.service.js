@@ -72,4 +72,17 @@ function buscarCandidatosPorCargo(cargo, uf) {
 	});
 }
 
-export { cargoExiste, ufExiste, buscarCandidatos, buscarCandidatosPorCargo };
+function buscarCandidatosPorNumero(cargo, numero, uf) {
+	const dados = buscarCandidatos();
+
+	return dados.candidatos.find((candidato) => {
+		const correspondenteAoCargo = candidato.cargo === cargo;
+		const correspondenteAoNumero = candidato.numero === numero;
+
+		if (!uf) return correspondenteAoCargo && correspondenteAoNumero;
+
+		return correspondenteAoCargo && correspondenteAoNumero && candidato.uf === uf;
+	});
+}
+
+export { cargoExiste, ufExiste, buscarCandidatos, buscarCandidatosPorCargo, buscarCandidatosPorNumero };
