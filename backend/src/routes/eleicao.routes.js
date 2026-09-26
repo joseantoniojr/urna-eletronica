@@ -7,6 +7,7 @@ import {
 	registrarVotoController,
 	buscarVotosCandidatoController,
 	registrarVotoNuloController,
+	registrarVotoBrancoController,
 } from "../controllers/eleicao.controller.js";
 
 const router = Router();
@@ -18,5 +19,6 @@ router.post("/iniciar-votacao", iniciarVotacao);
 router.post("/votar/:cargo/:numero", registrarVotoController);
 router.get("/votar/:sqCandidato", buscarVotosCandidatoController);
 router.post("/voto-nulo", registrarVotoNuloController);
+router.post("/voto-branco", registrarVotoBrancoController);
 
 export default router;

@@ -5,6 +5,7 @@ import {
 	obterCargoAtual,
 	obterProximoCargo,
 	registrarVoto,
+	registrarVotoBranco,
 	registrarVotoNulo,
 } from "../services/eleicao.service.js";
 
@@ -69,6 +70,12 @@ function registrarVotoNuloController(req, res) {
 	res.json(votosNulos);
 }
 
+function registrarVotoBrancoController(req, res) {
+	const votosBrancos = registrarVotoBranco();
+
+	res.json(votosBrancos);
+}
+
 function buscarVotosCandidatoController(req, res) {
 	const sqCandidato = req.params.sqCandidato;
 
@@ -84,5 +91,6 @@ export {
 	iniciarVotacao,
 	registrarVotoController,
 	buscarVotosCandidatoController,
-    registrarVotoNuloController
+	registrarVotoNuloController,
+	registrarVotoBrancoController,
 };

@@ -3,6 +3,7 @@ import { buscarCandidatosPorNumero } from "./candidatos.service.js";
 
 const votos = new Map();
 let votosNulos = 0;
+let votosBrancos = 0;
 
 function buscarOrdemVotacao(uf) {
 	const cargoDeputado = uf === "DF" ? CARGOS.DEPUTADO_DISTRITAL : CARGOS.DEPUTADO_ESTADUAL;
@@ -65,6 +66,10 @@ function registrarVotoNulo() {
 	return ++votosNulos;
 }
 
+function registrarVotoBranco() {
+	return ++votosBrancos;
+}
+
 function buscarVotosCandidato(sqCandidato) {
 	return votos.get(sqCandidato) ?? 0;
 }
@@ -77,4 +82,5 @@ export {
 	registrarVoto,
 	buscarVotosCandidato,
 	registrarVotoNulo,
+	registrarVotoBranco,
 };
