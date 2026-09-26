@@ -25,4 +25,13 @@ function obterCargoAtual(uf, index) {
 	return cargosOrdemVotacao[index];
 }
 
-export { buscarOrdemVotacao, obterCargoAtual };
+function obterProximoCargo(uf, indexAtual) {
+	const cargosOrdemVotacao = buscarOrdemVotacao(uf);
+
+	if (indexAtual + 1 >= cargosOrdemVotacao.length) {
+		return null;
+	}
+	return cargosOrdemVotacao[indexAtual + 1];
+}
+
+export { buscarOrdemVotacao, obterCargoAtual, obterProximoCargo };
