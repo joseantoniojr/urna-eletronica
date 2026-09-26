@@ -60,4 +60,15 @@ function registrarVoto(cargo, numero, uf) {
 	return candidato;
 }
 
-export { buscarOrdemVotacao, obterCargoAtual, obterProximoCargo, iniciarVotacaoService, registrarVoto };
+function buscarVotosCandidato(sqCandidato) {
+	return votos.get(sqCandidato) ?? 0;
+}
+
+export {
+	buscarOrdemVotacao,
+	obterCargoAtual,
+	obterProximoCargo,
+	iniciarVotacaoService,
+	registrarVoto,
+	buscarVotosCandidato,
+};

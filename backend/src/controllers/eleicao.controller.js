@@ -1,5 +1,6 @@
 import {
 	buscarOrdemVotacao,
+	buscarVotosCandidato,
 	iniciarVotacaoService,
 	obterCargoAtual,
 	obterProximoCargo,
@@ -46,7 +47,7 @@ function iniciarVotacao(req, res) {
 }
 
 function registrarVotoController(req, res) {
-	const cargo = req.params.cargo.toUpperCase();
+	const cargo = req.params.cargo?.toUpperCase();
 	const numero = req.params.numero;
 	const uf = req.query.uf?.toUpperCase();
 
@@ -61,4 +62,12 @@ function registrarVotoController(req, res) {
 	}
 }
 
-export { listarOrdemVotacao, cargoAtual, proximoCargo, iniciarVotacao, registrarVotoController };
+function buscarVotosCandidatoController(req, res) {
+	const sqCandidato = req.params.sqCandidato;
+
+	const votos = buscarVotosCandidato(sqCandidato);
+
+	res.json(votos);
+}
+
+export { listarOrdemVotacao, cargoAtual, proximoCargo, iniciarVotacao, registrarVotoController, buscarVotosCandidatoController };
