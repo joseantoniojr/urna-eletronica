@@ -1,4 +1,5 @@
 import { CARGOS, ORDEM_VOTACAO } from "../constants/eleicao.js";
+import { cargoAtual } from "../controllers/eleicao.controller.js";
 
 function buscarOrdemVotacao(uf) {
 	const cargoDeputado = uf === "DF" ? CARGOS.DEPUTADO_DISTRITAL : CARGOS.DEPUTADO_ESTADUAL;
@@ -34,4 +35,12 @@ function obterProximoCargo(uf, indexAtual) {
 	return cargosOrdemVotacao[indexAtual + 1];
 }
 
-export { buscarOrdemVotacao, obterCargoAtual, obterProximoCargo };
+function iniciarVotacaoService(uf) {
+	const ordemVotacao = buscarOrdemVotacao(uf);
+	let indexAtual = 0;
+	const cargoAtual = ordemVotacao[indexAtual];
+
+	return { uf, indexAtual, cargoAtual };
+}
+
+export { buscarOrdemVotacao, obterCargoAtual, obterProximoCargo, iniciarVotacaoService };

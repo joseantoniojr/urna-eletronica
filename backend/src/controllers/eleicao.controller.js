@@ -1,4 +1,9 @@
-import { buscarOrdemVotacao, obterCargoAtual, obterProximoCargo } from "../services/eleicao.service.js";
+import {
+	buscarOrdemVotacao,
+	iniciarVotacaoService,
+	obterCargoAtual,
+	obterProximoCargo,
+} from "../services/eleicao.service.js";
 
 function listarOrdemVotacao(req, res) {
 	const uf = req.query.uf?.toUpperCase();
@@ -31,4 +36,12 @@ function proximoCargo(req, res) {
 	res.json(cargo);
 }
 
-export { listarOrdemVotacao, cargoAtual, proximoCargo };
+function iniciarVotacao(req, res) {
+	const uf = req.query.uf?.toUpperCase();
+
+	const inicia = iniciarVotacaoService(uf);
+
+	res.json(inicia);
+}
+
+export { listarOrdemVotacao, cargoAtual, proximoCargo, iniciarVotacao };
