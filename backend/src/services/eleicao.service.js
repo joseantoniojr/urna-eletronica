@@ -1,5 +1,7 @@
-import { CARGOS, ORDEM_VOTACAO } from "../constants/eleicao.js";
-import { cargoAtual } from "../controllers/eleicao.controller.js";
+import { CARGOS } from "../constants/eleicao.js";
+import { buscarCandidatosPorNumero } from "./candidatos.service.js";
+
+const votos = new Map();
 
 function buscarOrdemVotacao(uf) {
 	const cargoDeputado = uf === "DF" ? CARGOS.DEPUTADO_DISTRITAL : CARGOS.DEPUTADO_ESTADUAL;
@@ -37,10 +39,25 @@ function obterProximoCargo(uf, indexAtual) {
 
 function iniciarVotacaoService(uf) {
 	const ordemVotacao = buscarOrdemVotacao(uf);
-	let indexAtual = 0;
+	const indexAtual = 0;
 	const cargoAtual = ordemVotacao[indexAtual];
 
 	return { uf, indexAtual, cargoAtual };
 }
 
-export { buscarOrdemVotacao, obterCargoAtual, obterProximoCargo, iniciarVotacaoService };
+function registrarVoto(cargo, numero, uf) {
+	const candidato = buscarCandidatosPorNumero(cargo, numero, uf);
+
+	if (!candidato) {
+		throw new Error("Candidato não encontrado");
+	}
+
+	const chave = candidato.sqCandidato;
+	const quantidadeVotos = votos.get(chave) ?? 0;
+
+	votos.set(chave, quantidadeVotos + 1);
+
+	return candidato;
+}
+
+export { buscarOrdemVotacao, obterCargoAtual, obterProximoCargo, iniciarVotacaoService, registrarVoto };

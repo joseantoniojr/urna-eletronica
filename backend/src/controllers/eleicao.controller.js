@@ -3,6 +3,7 @@ import {
 	iniciarVotacaoService,
 	obterCargoAtual,
 	obterProximoCargo,
+	registrarVoto,
 } from "../services/eleicao.service.js";
 
 function listarOrdemVotacao(req, res) {
@@ -44,4 +45,20 @@ function iniciarVotacao(req, res) {
 	res.json(inicia);
 }
 
-export { listarOrdemVotacao, cargoAtual, proximoCargo, iniciarVotacao };
+function registrarVotoController(req, res) {
+	const cargo = req.params.cargo.toUpperCase();
+	const numero = req.params.numero;
+	const uf = req.query.uf?.toUpperCase();
+
+	try {
+		const voto = registrarVoto(cargo, numero, uf);
+
+		res.json(voto);
+	} catch (erro) {
+		res.status(404).json({
+			erro: erro.message,
+		});
+	}
+}
+
+export { listarOrdemVotacao, cargoAtual, proximoCargo, iniciarVotacao, registrarVotoController };
