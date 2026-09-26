@@ -1,20 +1,12 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
+import { CARGOS_VALIDOS } from "../constants/eleicao.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const caminhoArquivo = path.join(__dirname, "../../data/candidatos.json");
-
-const cargosValidos = [
-	"PRESIDENTE",
-	"GOVERNADOR",
-	"SENADOR",
-	"DEPUTADO FEDERAL",
-	"DEPUTADO ESTADUAL",
-	"DEPUTADO DISTRITAL",
-];
 
 const ufsValidos = [
 	"AC",
@@ -53,7 +45,7 @@ function buscarCandidatos() {
 }
 
 function cargoExiste(cargo) {
-	return cargosValidos.includes(cargo);
+	return CARGOS_VALIDOS.includes(cargo);
 }
 
 function ufExiste(uf) {
