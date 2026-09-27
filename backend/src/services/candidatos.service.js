@@ -77,4 +77,17 @@ function buscarCandidatosPorNumero(cargo, numero, uf) {
 	});
 }
 
-export { cargoExiste, ufExiste, buscarCandidatos, buscarCandidatosPorCargo, buscarCandidatosPorNumero };
+function buscarCandidatosPorSq(sqCandidato) {
+	const dados = buscarCandidatos();
+
+	return dados.candidatos.find((candidato) => candidato.sqCandidato === sqCandidato);
+}
+
+export {
+	cargoExiste,
+	ufExiste,
+	buscarCandidatos,
+	buscarCandidatosPorCargo,
+	buscarCandidatosPorNumero,
+	buscarCandidatosPorSq,
+};

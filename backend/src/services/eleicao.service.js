@@ -1,5 +1,5 @@
 import { CARGOS } from "../constants/eleicao.js";
-import { buscarCandidatosPorNumero } from "./candidatos.service.js";
+import { buscarCandidatosPorNumero, buscarCandidatosPorSq } from "./candidatos.service.js";
 
 const resultados = new Map();
 
@@ -194,7 +194,29 @@ function buscarTodosOsVotos() {
 }
 
 function buscarResultado() {
-	return buscarTodosOsVotos();
+	const votos = buscarTodosOsVotos();
+
+	return votos.map((resultado) => {
+		const candidatos = resultado.votos.map(([sqCandidato, quantidadeVotos]) => {
+			const candidato = buscarCandidatosPorSq(sqCandidato);
+
+			return {
+				sqCandidato: candidato.sqCandidato,
+				numero: candidato.numero,
+				nomeUrna: candidato.nomeUrna,
+				partido: candidato.partido,
+				votos: quantidadeVotos,
+			};
+		});
+
+		return {
+			uf: resultado.uf,
+			cargo: resultado.cargo,
+			candidatos,
+			brancos: resultado.brancos,
+			nulos: resultado.nulos,
+		};
+	});
 }
 
 export {

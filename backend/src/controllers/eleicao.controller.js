@@ -78,10 +78,14 @@ function iniciarVotacao(req, res) {
 			erro: "Estado inválido",
 		});
 	}
-
-	const inicia = iniciarVotacaoService(uf);
-
-	res.json(inicia);
+	try {
+		const inicia = iniciarVotacaoService(uf);
+		res.json(inicia);
+	} catch (erro) {
+		res.status(400).json({
+			erro: erro.message,
+		});
+	}
 }
 
 function registrarVotoController(req, res) {
