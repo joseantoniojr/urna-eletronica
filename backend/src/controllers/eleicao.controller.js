@@ -1,5 +1,6 @@
 import {
 	buscarOrdemVotacao,
+	buscarResultado,
 	buscarTodosOsVotos,
 	buscarVotosBrancos,
 	buscarVotosCandidato,
@@ -105,6 +106,12 @@ function buscarTodosOsVotosController(req, res) {
 	res.json(votos);
 }
 
+function buscarResultadoController(req, res) {
+	const resultado = buscarResultado();
+
+	res.json(resultado);
+}
+
 export {
 	listarOrdemVotacao,
 	cargoAtual,
@@ -117,4 +124,5 @@ export {
 	buscarVotosNulosController,
 	buscarVotosBrancosController,
 	buscarTodosOsVotosController,
+	buscarResultadoController,
 };

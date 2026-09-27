@@ -86,6 +86,14 @@ function buscarTodosOsVotos() {
 	return Array.from(votos.entries());
 }
 
+function buscarResultado() {
+	const votos = buscarTodosOsVotos();
+	const votosNulos = buscarVotosNulos();
+	const votosBrancos = buscarVotosBrancos();
+
+	return { votos, votosNulos, votosBrancos };
+}
+
 export {
 	buscarOrdemVotacao,
 	obterCargoAtual,
@@ -98,4 +106,5 @@ export {
 	buscarVotosNulos,
 	buscarVotosBrancos,
 	buscarTodosOsVotos,
+	buscarResultado,
 };

@@ -11,6 +11,7 @@ import {
 	buscarVotosNulosController,
 	buscarVotosBrancosController,
 	buscarTodosOsVotosController,
+	buscarResultadoController,
 } from "../controllers/eleicao.controller.js";
 
 const router = Router();
@@ -26,5 +27,6 @@ router.post("/voto-branco", registrarVotoBrancoController);
 router.get("/votos-nulos", buscarVotosNulosController);
 router.get("/votos-brancos", buscarVotosBrancosController);
 router.get("/votos", buscarTodosOsVotosController);
+router.get("/resultados", buscarResultadoController);
 
 export default router;
