@@ -1,4 +1,4 @@
-import { ufExiste } from "../services/candidatos.service.js";
+import { cargoExiste, ufExiste } from "../services/candidatos.service.js";
 import {
 	buscarOrdemVotacao,
 	buscarResultado,
@@ -81,6 +81,18 @@ function registrarVotoController(req, res) {
 	const cargo = req.params.cargo?.toUpperCase();
 	const numero = req.params.numero;
 	const uf = req.query.uf?.toUpperCase();
+
+	if (!cargoExiste(cargo)) {
+		return res.status(400).json({
+			erro: "Cargo inválido",
+		});
+	}
+
+	if (!ufExiste(uf)) {
+		return res.status(400).json({
+			erro: "Estado inválido",
+		});
+	}
 
 	try {
 		const voto = registrarVoto(cargo, numero, uf);
