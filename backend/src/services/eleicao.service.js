@@ -82,6 +82,10 @@ function buscarVotosBrancos() {
 	return votosBrancos;
 }
 
+function buscarTodosOsVotos() {
+	return Array.from(votos.entries());
+}
+
 export {
 	buscarOrdemVotacao,
 	obterCargoAtual,
@@ -93,4 +97,5 @@ export {
 	buscarVotosCandidato,
 	buscarVotosNulos,
 	buscarVotosBrancos,
+	buscarTodosOsVotos,
 };
