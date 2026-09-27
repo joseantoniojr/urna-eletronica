@@ -9,6 +9,7 @@ import {
 	iniciarVotacaoService,
 	obterCargoAtual,
 	obterProximoCargo,
+	obterVotacaoAtual,
 	registrarVoto,
 	registrarVotoBranco,
 	registrarVotoNulo,
@@ -61,6 +62,12 @@ function proximoCargo(req, res) {
 	const cargo = obterProximoCargo(uf, indexAtual);
 
 	res.json(cargo);
+}
+
+function consultarVotacaoAtual(req, res) {
+	const votacao = obterVotacaoAtual();
+
+	res.json(votacao);
 }
 
 function iniciarVotacao(req, res) {
@@ -153,6 +160,7 @@ export {
 	listarOrdemVotacao,
 	cargoAtual,
 	proximoCargo,
+	consultarVotacaoAtual,
 	iniciarVotacao,
 	registrarVotoController,
 	buscarVotosCandidatoController,

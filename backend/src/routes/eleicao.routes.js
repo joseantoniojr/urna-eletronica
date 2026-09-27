@@ -12,12 +12,14 @@ import {
 	buscarVotosBrancosController,
 	buscarTodosOsVotosController,
 	buscarResultadoController,
+	consultarVotacaoAtual,
 } from "../controllers/eleicao.controller.js";
 
 const router = Router();
 
 router.get("/ordem-votacao", listarOrdemVotacao);
 router.get("/cargo-atual", cargoAtual);
+router.get("/votacao-atual", consultarVotacaoAtual);
 router.get("/proximo-cargo", proximoCargo);
 router.post("/iniciar-votacao", iniciarVotacao);
 router.post("/votar/:cargo/:numero", registrarVotoController);
