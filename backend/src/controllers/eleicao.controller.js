@@ -1,3 +1,4 @@
+import { ufExiste } from "../services/candidatos.service.js";
 import {
 	buscarOrdemVotacao,
 	buscarResultado,
@@ -16,6 +17,12 @@ import {
 function listarOrdemVotacao(req, res) {
 	const uf = req.query.uf?.toUpperCase();
 
+	if (!ufExiste(uf)) {
+		return res.status(400).json({
+			erro: "Estado inválido",
+		});
+	}
+
 	const ordemVotacao = buscarOrdemVotacao(uf);
 
 	res.json(ordemVotacao);
@@ -24,6 +31,12 @@ function listarOrdemVotacao(req, res) {
 function cargoAtual(req, res) {
 	const uf = req.query.uf?.toUpperCase();
 	const index = Number(req.query.index);
+
+	if (!ufExiste(uf)) {
+		return res.status(400).json({
+			erro: "Estado inválido",
+		});
+	}
 
 	try {
 		const cargo = obterCargoAtual(uf, index);
@@ -39,6 +52,12 @@ function proximoCargo(req, res) {
 	const uf = req.query.uf?.toUpperCase();
 	const indexAtual = Number(req.query.index);
 
+	if (!ufExiste(uf)) {
+		return res.status(400).json({
+			erro: "Estado inválido",
+		});
+	}
+
 	const cargo = obterProximoCargo(uf, indexAtual);
 
 	res.json(cargo);
@@ -46,6 +65,12 @@ function proximoCargo(req, res) {
 
 function iniciarVotacao(req, res) {
 	const uf = req.query.uf?.toUpperCase();
+
+	if (!ufExiste(uf)) {
+		return res.status(400).json({
+			erro: "Estado inválido",
+		});
+	}
 
 	const inicia = iniciarVotacaoService(uf);
 
