@@ -129,6 +129,14 @@ function buscarVotosCandidatoController(req, res) {
 	const cargo = req.query.cargo?.toUpperCase();
 	const uf = req.query.uf?.toUpperCase();
 
+	if (!cargoExiste(cargo)) {
+		return res.status(400).json({ erro: "Cargo inválido" });
+	}
+
+	if (!ufExiste(uf)) {
+		return res.status(400).json({ erro: "Estado inválido" });
+	}
+
 	const votos = buscarVotosCandidato(uf, cargo, sqCandidato);
 
 	res.json(votos);
@@ -138,6 +146,14 @@ function buscarVotosNulosController(req, res) {
 	const cargo = req.query.cargo?.toUpperCase();
 	const uf = req.query.uf?.toUpperCase();
 
+	if (!cargoExiste(cargo)) {
+		return res.status(400).json({ erro: "Cargo inválido" });
+	}
+
+	if (!ufExiste(uf)) {
+		return res.status(400).json({ erro: "Estado inválido" });
+	}
+
 	const votosNulos = buscarVotosNulos(uf, cargo);
 
 	res.json(votosNulos);
@@ -146,6 +162,14 @@ function buscarVotosNulosController(req, res) {
 function buscarVotosBrancosController(req, res) {
 	const cargo = req.query.cargo?.toUpperCase();
 	const uf = req.query.uf?.toUpperCase();
+
+	if (!cargoExiste(cargo)) {
+		return res.status(400).json({ erro: "Cargo inválido" });
+	}
+
+	if (!ufExiste(uf)) {
+		return res.status(400).json({ erro: "Estado inválido" });
+	}
 
 	const votosBrancos = buscarVotosBrancos(uf, cargo);
 

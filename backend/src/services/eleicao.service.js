@@ -58,6 +58,8 @@ function obterVotacaoAtual() {
 }
 
 function iniciarVotacaoService(uf) {
+	if (votacaoAtual) throw new Error("Votação em andamento");
+
 	const ordemVotacao = buscarOrdemVotacao(uf);
 	const indexAtual = 0;
 	const cargoAtual = ordemVotacao[indexAtual];
@@ -114,21 +116,39 @@ function registrarVoto(cargo, numero, uf) {
 function registrarVotoNulo() {
 	if (!votacaoAtual) throw new Error("Nenhuma votação em andamento");
 
+	const uf = votacaoAtual.uf;
+	const cargo = votacaoAtual.cargoAtual;
+
 	const resultado = obterOuCriarResultado(votacaoAtual.uf, votacaoAtual.cargoAtual);
 
 	resultado.nulos++;
 
 	avancarVotacao();
+
+	return {
+		tipo: "NULO",
+		uf,
+		cargo,
+	};
 }
 
 function registrarVotoBranco() {
 	if (!votacaoAtual) throw new Error("Nenhuma votação em andamento");
+
+	const uf = votacaoAtual.uf;
+	const cargo = votacaoAtual.cargoAtual;
 
 	const resultado = obterOuCriarResultado(votacaoAtual.uf, votacaoAtual.cargoAtual);
 
 	resultado.brancos++;
 
 	avancarVotacao();
+
+	return {
+		tipo: "BRANCO",
+		uf,
+		cargo,
+	};
 }
 
 function buscarVotosPorContexto(uf, cargo) {
