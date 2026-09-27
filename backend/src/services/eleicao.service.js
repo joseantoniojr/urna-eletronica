@@ -1,10 +1,8 @@
 import { CARGOS } from "../constants/eleicao.js";
 import { buscarCandidatosPorNumero } from "./candidatos.service.js";
 
-const votos = new Map();
+const resultados = new Map();
 
-let votosNulos = 0;
-let votosBrancos = 0;
 let votacaoAtual = null;
 
 function buscarOrdemVotacao(uf) {
@@ -20,6 +18,20 @@ function buscarOrdemVotacao(uf) {
 	];
 
 	return ordemVotacao;
+}
+
+function obterOuCriarResultado(uf, cargo) {
+	const chave = `${uf}:${cargo}`;
+
+	if (!resultados.has(chave)) {
+		resultados.set(chave, {
+			candidatos: new Map(),
+			brancos: 0,
+			nulos: 0,
+		});
+	}
+
+	return resultados.get(chave);
 }
 
 function obterCargoAtual(uf, index) {
@@ -56,30 +68,8 @@ function iniciarVotacaoService(uf) {
 	return votacaoAtual;
 }
 
-function registrarVoto(cargo, numero, uf) {
-	if (!votacaoAtual) throw new Error("Nenhuma votação em andamento");
-
-	if (cargo !== votacaoAtual.cargoAtual) throw new Error("Cargo diferente do cargo atual da votação");
-
-	const ufBusca = cargo === "PRESIDENTE" ? "BR" : uf;
-
-	const candidato = buscarCandidatosPorNumero(cargo, numero, ufBusca);
-
-	if (!candidato) throw new Error("Candidato não encontrado");
-
-	if (votacaoAtual.uf !== uf) throw new Error("Estado diferente do estado atual da votação");
-
-	if (votacaoAtual.votosEleitor.includes(candidato.sqCandidato) && votacaoAtual.cargoAtual === "SENADOR")
-		throw new Error("Não pode votar no mesmo candidato mais de 1 vez");
-
-	const chave = candidato.sqCandidato;
-	const quantidadeVotos = votos.get(chave) ?? 0;
-
-	votos.set(chave, quantidadeVotos + 1);
-
+function avancarVotacao() {
 	const proximoCargo = obterProximoCargo(votacaoAtual.uf, votacaoAtual.indexAtual);
-
-	votacaoAtual.votosEleitor.push(candidato.sqCandidato);
 
 	if (!proximoCargo) {
 		votacaoAtual = null;
@@ -89,39 +79,102 @@ function registrarVoto(cargo, numero, uf) {
 	votacaoAtual.indexAtual += 1;
 	votacaoAtual.cargoAtual = proximoCargo;
 
+	return votacaoAtual;
+}
+
+function registrarVoto(cargo, numero, uf) {
+	if (!votacaoAtual) throw new Error("Nenhuma votação em andamento");
+
+	if (cargo !== votacaoAtual.cargoAtual) throw new Error("Cargo diferente do cargo atual da votação");
+
+	if (votacaoAtual.uf !== uf) throw new Error("Estado diferente do estado atual da votação");
+
+	const ufBusca = cargo === CARGOS.PRESIDENTE ? "BR" : uf;
+
+	const candidato = buscarCandidatosPorNumero(cargo, numero, ufBusca);
+	if (!candidato) throw new Error("Candidato não encontrado");
+
+	if (votacaoAtual.votosEleitor.includes(candidato.sqCandidato) && votacaoAtual.cargoAtual === "SENADOR")
+		throw new Error("Não pode votar no mesmo candidato mais de 1 vez");
+
+	const resultado = obterOuCriarResultado(uf, cargo);
+
+	const chave = candidato.sqCandidato;
+	const quantidadeVotos = resultado.candidatos.get(chave) ?? 0;
+
+	resultado.candidatos.set(chave, quantidadeVotos + 1);
+
+	votacaoAtual.votosEleitor.push(candidato.sqCandidato);
+
+	avancarVotacao();
+
 	return candidato;
 }
 
 function registrarVotoNulo() {
-	return ++votosNulos;
+	if (!votacaoAtual) throw new Error("Nenhuma votação em andamento");
+
+	const resultado = obterOuCriarResultado(votacaoAtual.uf, votacaoAtual.cargoAtual);
+
+	resultado.nulos++;
+
+	avancarVotacao();
 }
 
 function registrarVotoBranco() {
-	return ++votosBrancos;
+	if (!votacaoAtual) throw new Error("Nenhuma votação em andamento");
+
+	const resultado = obterOuCriarResultado(votacaoAtual.uf, votacaoAtual.cargoAtual);
+
+	resultado.brancos++;
+
+	avancarVotacao();
 }
 
-function buscarVotosCandidato(sqCandidato) {
-	return votos.get(sqCandidato) ?? 0;
+function buscarVotosPorContexto(uf, cargo) {
+	const chave = `${uf}:${cargo}`;
+
+	return resultados.get(chave);
 }
 
-function buscarVotosNulos() {
-	return votosNulos;
+function buscarVotosNulos(uf, cargo) {
+	const resultado = buscarVotosPorContexto(uf, cargo);
+
+	return resultado?.nulos ?? 0;
 }
 
-function buscarVotosBrancos() {
-	return votosBrancos;
+function buscarVotosBrancos(uf, cargo) {
+	const resultado = buscarVotosPorContexto(uf, cargo);
+
+	return resultado?.brancos ?? 0;
+}
+
+function buscarVotosCandidato(uf, cargo, sqCandidato) {
+	const resultado = buscarVotosPorContexto(uf, cargo);
+
+	return resultado?.candidatos?.get(sqCandidato) ?? 0;
 }
 
 function buscarTodosOsVotos() {
-	return Array.from(votos.entries());
+	const todoOsVotos = Array.from(resultados.entries()).map(([chaveCompleta, dados]) => {
+		const [uf, cargo] = chaveCompleta.split(":");
+
+		const votosCandidados = Array.from(dados.candidatos.entries());
+
+		return {
+			uf,
+			cargo,
+			votos: votosCandidados,
+			brancos: dados.brancos,
+			nulos: dados.nulos,
+		};
+	});
+
+	return todoOsVotos;
 }
 
 function buscarResultado() {
-	const votos = buscarTodosOsVotos();
-	const votosNulos = buscarVotosNulos();
-	const votosBrancos = buscarVotosBrancos();
-
-	return { votos, votosNulos, votosBrancos };
+	return buscarTodosOsVotos();
 }
 
 export {

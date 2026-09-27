@@ -126,20 +126,28 @@ function registrarVotoBrancoController(req, res) {
 
 function buscarVotosCandidatoController(req, res) {
 	const sqCandidato = req.params.sqCandidato;
+	const cargo = req.query.cargo?.toUpperCase();
+	const uf = req.query.uf?.toUpperCase();
 
-	const votos = buscarVotosCandidato(sqCandidato);
+	const votos = buscarVotosCandidato(uf, cargo, sqCandidato);
 
 	res.json(votos);
 }
 
 function buscarVotosNulosController(req, res) {
-	const votosNulos = buscarVotosNulos();
+	const cargo = req.query.cargo?.toUpperCase();
+	const uf = req.query.uf?.toUpperCase();
+
+	const votosNulos = buscarVotosNulos(uf, cargo);
 
 	res.json(votosNulos);
 }
 
 function buscarVotosBrancosController(req, res) {
-	const votosBrancos = buscarVotosBrancos();
+	const cargo = req.query.cargo?.toUpperCase();
+	const uf = req.query.uf?.toUpperCase();
+
+	const votosBrancos = buscarVotosBrancos(uf, cargo);
 
 	res.json(votosBrancos);
 }
