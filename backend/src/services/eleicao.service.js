@@ -96,7 +96,7 @@ function registrarVoto(cargo, numero, uf) {
 	const candidato = buscarCandidatosPorNumero(cargo, numero, ufBusca);
 	if (!candidato) throw new Error("Candidato não encontrado");
 
-	if (votacaoAtual.votosEleitor.includes(candidato.sqCandidato) && votacaoAtual.cargoAtual === "SENADOR")
+	if (votacaoAtual.votosEleitor.includes(candidato.sqCandidato) && votacaoAtual.cargoAtual === CARGOS.SENADOR)
 		throw new Error("Não pode votar no mesmo candidato mais de 1 vez");
 
 	const resultado = obterOuCriarResultado(uf, cargo);

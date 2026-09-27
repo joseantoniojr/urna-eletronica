@@ -39,6 +39,12 @@ function cargoAtual(req, res) {
 		});
 	}
 
+	if (!Number.isInteger(index) || index < 0) {
+		return res.status(400).json({
+			error: "O parâmetro 'index' deve ser um número inteiro válido e positivo.",
+		});
+	}
+
 	try {
 		const cargo = obterCargoAtual(uf, index);
 		res.json(cargo);
@@ -56,6 +62,12 @@ function proximoCargo(req, res) {
 	if (!ufExiste(uf)) {
 		return res.status(400).json({
 			erro: "Estado inválido",
+		});
+	}
+
+	if (!Number.isInteger(indexAtual) || indexAtual < 0) {
+		return res.status(400).json({
+			error: "O parâmetro 'index' deve ser um número inteiro válido e positivo.",
 		});
 	}
 
