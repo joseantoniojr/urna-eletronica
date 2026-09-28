@@ -6,18 +6,32 @@ import Urna from "./pages/Urna.jsx";
 function App() {
 	const [votacao, setVotacao] = useState(null);
 	const [pagina, setPagina] = useState("inicio");
+	const [votacaoFinalizada, setVotacaoFinalizada] = useState(false);
 
 	return (
 		<main>
-			{pagina === "inicio" && (
-				<Inicio
-					onIniciarVotacao={(dados) => {
-						setVotacao(dados);
-						setPagina("urna");
-					}}
-				/>
+			{votacaoFinalizada ? (
+				<h1>FIM</h1>
+			) : (
+				<>
+					{pagina === "inicio" && (
+						<Inicio
+							onIniciarVotacao={(dados) => {
+								setVotacao(dados);
+								setPagina("urna");
+							}}
+						/>
+					)}
+
+					{pagina === "urna" && (
+						<Urna
+							votacao={votacao}
+							onAtualizarVotacao={setVotacao}
+							onFinalizarVotacao={() => setVotacaoFinalizada(true)}
+						/>
+					)}
+				</>
 			)}
-			{pagina === "urna" && <Urna votacao={votacao} />}
 		</main>
 	);
 }

@@ -8,4 +8,20 @@ async function buscarUFs() {
 	return await apiGet("/ufs");
 }
 
-export { iniciarVotacao, buscarUFs };
+async function registrarVoto(cargo, numero, uf) {
+	return await apiPost(`/eleicao/votar/${cargo}/${numero}?uf=${uf}`);
+}
+
+async function consultarVotacaoAtual() {
+	return await apiGet("/eleicao/votacao-atual");
+}
+
+async function registrarVotoBranco() {
+	return await apiPost("/eleicao/voto-branco");
+}
+
+async function registrarVotoNulo() {
+	return await apiPost("/eleicao/voto-nulo");
+}
+
+export { iniciarVotacao, buscarUFs, registrarVoto, consultarVotacaoAtual, registrarVotoBranco, registrarVotoNulo };
