@@ -62,30 +62,37 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao, 
 	}
 
 	async function confirmarVoto() {
-		if (votoBranco) {
-			await registrarVotoBranco();
-		} else {
-			if (numero.length === quantidadeDigitos && !candidato) {
+		if (!votoBranco && numero.length < quantidadeDigitos) {
+			return;
+		}
+
+		try {
+			if (votoBranco) {
+				await registrarVotoBranco();
+			} else if (numero.length === quantidadeDigitos && !candidato) {
 				await registrarVotoNulo();
 			} else {
 				await registrarVoto(votacao.cargoAtual, numero, votacao.uf);
 			}
+
+			tocarSom("confirma");
+
+			const novaVotacao = await consultarVotacaoAtual();
+
+			if (!novaVotacao) {
+				tocarSom("fim");
+				onFinalizarVotacao();
+				return;
+			}
+
+			onAtualizarVotacao(novaVotacao);
+
+			setNumero("");
+			setCandidato(null);
+			setVotoBranco(false);
+		} catch (erro) {
+			console.error("Erro ao confirmar voto:", erro);
 		}
-
-		tocarSom("confirma");
-
-		const novaVotacao = await consultarVotacaoAtual();
-
-		if (!novaVotacao) {
-			tocarSom("fim");
-			onFinalizarVotacao();
-			return;
-		}
-
-		onAtualizarVotacao(novaVotacao);
-
-		setNumero("");
-		setVotoBranco(false);
 	}
 
 	return (

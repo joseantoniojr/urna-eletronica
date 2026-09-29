@@ -28,7 +28,7 @@ export default function DadosCandidato({ numero, candidato, quantidadeDigitos, v
 					<p className='urna__voto-nulo'>VOTO NULO</p>
 				)}
 
-				{candidato && (
+				{candidatoVisivel && (
 					<dl className='urna__dados-principais'>
 						<div className='urna__dado-group'>
 							<dt className='urna__label'>Nome:</dt>
