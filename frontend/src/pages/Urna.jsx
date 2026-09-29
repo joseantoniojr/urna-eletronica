@@ -60,7 +60,7 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 		if (votoBranco) {
 			await registrarVotoBranco();
 		} else {
-			if (!numero || !candidato) {
+			if (numero.length === quantidadeDigitos && !candidato) {
 				await registrarVotoNulo();
 			} else {
 				await registrarVoto(votacao.cargoAtual, numero, votacao.uf);
@@ -90,6 +90,8 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 				candidato={candidato}
 				quantidadeDigitos={quantidadeDigitos}
 				votoBranco={votoBranco}
+				indexAtual={votacao.indexAtual}
+				uf={votacao.uf}
 			/>
 
 			<TecladoNumerico
