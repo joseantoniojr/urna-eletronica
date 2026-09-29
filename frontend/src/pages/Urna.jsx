@@ -40,7 +40,7 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 	}, [numero, quantidadeDigitos, votacao.cargoAtual, votacao.uf]);
 
 	function adicionarNumero(numeroClicado) {
-		setVotoBranco(null)
+		setVotoBranco(null);
 
 		setNumero((numeroAtual) => {
 			if (numeroAtual.length >= quantidadeDigitos) {
@@ -84,7 +84,13 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 		<section>
 			<IdentificacaoVotacao uf={votacao.uf} />
 
-			<TelaVotacao cargoAtual={votacao.cargoAtual} numero={numero} candidato={candidato} />
+			<TelaVotacao
+				cargoAtual={votacao.cargoAtual}
+				numero={numero}
+				candidato={candidato}
+				quantidadeDigitos={quantidadeDigitos}
+				votoBranco={votoBranco}
+			/>
 
 			<TecladoNumerico
 				numeros={numeros}
@@ -93,6 +99,7 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 				confirmarVoto={confirmarVoto}
 				setNumero={setNumero}
 				setVotoBranco={setVotoBranco}
+				setCandidato={setCandidato}
 			/>
 
 			<button type='button'>Voltar ao início</button>

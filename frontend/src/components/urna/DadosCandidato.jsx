@@ -1,4 +1,4 @@
-export default function DadosCandidato({ numero, candidato }) {
+export default function DadosCandidato({ numero, candidato, quantidadeDigitos, votoBranco }) {
 	return (
 		<section>
 			<div>
@@ -9,6 +9,11 @@ export default function DadosCandidato({ numero, candidato }) {
 							<output>{numero}</output>
 						</div>
 					</div>
+
+					{votoBranco && <p>VOTO EM BRANCO</p>}
+
+					{numero.length === quantidadeDigitos && !candidato && <p>VOTO NULO</p>}
+
 					<dl>
 						<dt>Nome:</dt>
 						<dd>{candidato?.nomeUrna}</dd>

@@ -5,6 +5,7 @@ export default function TecladoNumerico({
 	confirmarVoto,
 	setNumero,
 	setVotoBranco,
+	setCandidato
 }) {
 	return (
 		<section aria-label='Teclado da urna'>
@@ -27,6 +28,7 @@ export default function TecladoNumerico({
 					type='button'
 					onClick={() => {
 						setNumero("");
+						setCandidato(null);
 						setVotoBranco(true);
 					}}
 				>
