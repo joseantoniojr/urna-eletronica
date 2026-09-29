@@ -11,7 +11,7 @@ export default function TecladoNumerico({
 }) {
 	return (
 		<section className='urna__teclado' aria-label='Teclado da urna'>
-			<div>
+			<div className='urna__teclas'>
 				{numeros.map((num) => (
 					<button
 						key={num}
@@ -26,9 +26,10 @@ export default function TecladoNumerico({
 				))}
 			</div>
 
-			<div>
+			<div className='urna__acoes'>
 				<button
 					type='button'
+					className='urna__acao urna__acao--branco'
 					onClick={() => {
 						setNumero("");
 						setCandidato(null);
@@ -38,11 +39,11 @@ export default function TecladoNumerico({
 					BRANCO
 				</button>
 
-				<button type='button' onClick={corrigirNumero}>
+				<button type='button' className='urna__acao urna__acao--corrige' onClick={corrigirNumero}>
 					CORRIGE
 				</button>
 
-				<button type='button' onClick={confirmarVoto}>
+				<button type='button' className='urna__acao urna__acao--confirma' onClick={confirmarVoto}>
 					CONFIRMA
 				</button>
 			</div>

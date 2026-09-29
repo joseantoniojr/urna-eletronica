@@ -12,12 +12,11 @@ export default function CabecalhoVotacao({ indexAtual, uf }) {
 		<header>
 			<ol>
 				{etapas.map((etapa, index) => (
-					<li key={etapa}>{index === indexAtual ? `→ ${etapa}` : etapa}</li>
+					<li key={etapa} className={index === indexAtual ? "urna__etapa urna__etapa--atual" : "urna__etapa"}>
+						{etapa}
+					</li>
 				))}
 			</ol>
-
-			<p>Seu voto para</p>
-			<h2>{etapas[indexAtual]}</h2>
 		</header>
 	);
 }

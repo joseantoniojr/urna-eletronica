@@ -11,8 +11,12 @@ import TecladoNumerico from "../components/urna/TecladoNumerico.jsx";
 import TelaVotacao from "../components/urna/TelaVotacao.jsx";
 import IdentificacaoVotacao from "../components/urna/IdentificacaoVotacao.jsx";
 import { tocarSom } from "../services/sons.js";
+import "../styles/urna/urna.css";
+import "../styles/urna/telaVotacao.css";
+import "../styles/urna/candidato.css";
+import "../styles/urna/teclado.css";
 
-export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao, onVoltarInicio }) {
+export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao, onVoltarInicio, votacaoFinalizada }) {
 	const numeros = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 	const [numero, setNumero] = useState("");
 	const [candidato, setCandidato] = useState(null);
@@ -85,10 +89,10 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao, 
 	}
 
 	return (
-		<section className='urna'>
+		<section className='container'>
 			<IdentificacaoVotacao uf={votacao.uf} />
 
-			<div className='urna__conteudo'>
+			<div className='urna__corpo'>
 				<TelaVotacao
 					cargoAtual={votacao.cargoAtual}
 					numero={numero}
@@ -97,6 +101,7 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao, 
 					votoBranco={votoBranco}
 					indexAtual={votacao.indexAtual}
 					uf={votacao.uf}
+					votacaoFinalizada={votacaoFinalizada}
 				/>
 				<TecladoNumerico
 					numeros={numeros}
@@ -109,7 +114,7 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao, 
 				/>
 			</div>
 
-			<button className='btn btn--voltar' type='button' onClick={onVoltarInicio}>
+			<button className='urna__voltar' type='button' onClick={onVoltarInicio}>
 				Voltar ao início
 			</button>
 		</section>

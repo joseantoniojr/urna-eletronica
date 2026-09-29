@@ -1,6 +1,6 @@
 export default function InstrucoesVoto() {
 	return (
-		<footer>
+		<footer className='urna__instrucoes'>
 			<p>Aperte a tecla:</p>
 			<p>
 				<span>Verde</span> para <strong>Confirmar</strong> este voto

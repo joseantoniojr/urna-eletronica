@@ -1,0 +1,76 @@
+.urna__fim-votacao {
+	font-size: 10rem;
+	flex: 1;
+	align-content: center;
+	align-self: center;
+}
+
+.urna__tela {
+	width: 100%;
+	height: 37.5rem;
+
+	display: flex;
+	flex-direction: column;
+	padding: 1.2rem 1.6rem;
+
+	background-color: #fff;
+	border-block: 16px;
+	border-inline: 32px;
+	border-style: solid;
+	border-color: #000;
+}
+
+.urna__tela header {
+	display: flex;
+	flex-direction: column;
+
+	padding-bottom: 1rem;
+}
+
+.urna__tela ol {
+	flex: 1;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 0.4rem;
+	list-style: none;
+}
+
+.urna__tela li {
+	font-family: "Manrope", sans-serif;
+	font-size: 1rem;
+
+	background-color: #ddd;
+	color: #000;
+
+	padding: 0.4rem 0.6rem;
+	border-radius: 4px;
+}
+
+.urna__etapa {
+	font-weight: 500;
+}
+
+.urna__tela li.urna__etapa--atual {
+	font-weight: 700;
+
+	background-color: #9d9d9d;
+	color: #fff;
+}
+
+.urna__instrucoes {
+	padding-top: 0.4rem;
+
+	border-top: 1px solid #000;
+
+	font-size: 1rem;
+}
+
+.urna__instrucoes p {
+	margin: 0.5rem 0;
+}
+
+.urna__instrucoes span,
+.urna__instrucoes strong {
+	font-weight: 700;
+}

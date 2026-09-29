@@ -1,0 +1,126 @@
+.urna__candidato {
+	flex: 1;
+	width: 100%;
+	display: flex;
+	justify-content: space-between;
+}
+
+.urna__candidato-dados {
+	display: flex;
+	flex-direction: column;
+	gap: 1.2rem;
+}
+
+.urna__candidato-dados header {
+	padding: 0;
+}
+
+.urna__voto-titulo {
+	margin-bottom: 0.8rem;
+	font-size: 1.2rem;
+	font-weight: 700;
+
+	text-transform: uppercase;
+}
+
+.urna__cargo-atual {
+	margin: 0;
+	font-size: 2.4rem;
+	font-weight: 700;
+}
+
+.urna__candidato-info-numero {
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+}
+
+.urna__label {
+	flex-basis: 30%;
+	font-size: 1.3rem;
+
+	text-wrap: nowrap;
+}
+
+.urna__numeros-voto {
+	display: flex;
+	gap: 0.3rem;
+}
+
+.urna__numeros-voto span {
+	width: 2.4rem;
+	height: 3.2rem;
+
+	display: flex;
+	align-items: center;
+	justify-content: center;
+
+	border: 1.5px solid #000;
+	background-color: #fff;
+
+	font-family: "Manrope", sans-serif;
+	font-size: 2rem;
+	font-weight: 700;
+}
+
+.urna__dados-principais,
+.urna__dados-especiais {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 0.8rem;
+}
+
+.urna__dados-especiais {
+	border-top: 1px solid #ccc;
+	padding-block: 1.6rem;
+}
+
+.urna__dados-especiais dt {
+	text-wrap: nowrap;
+	font-weight: 700;
+}
+
+.urna__dado-group {
+	display: flex;
+	align-items: center;
+	gap: 0.8rem;
+}
+
+.urna__dado-group dd {
+	flex: 1;
+	font-size: 1.3rem;
+	text-wrap: nowrap;
+}
+
+.urna__foto {
+	margin: 0;
+
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 0.5rem;
+}
+
+.urna__foto img {
+	width: 100px;
+	height: 130px;
+
+	object-fit: cover;
+
+	border: 1px solid #888;
+}
+
+.urna__foto-legenda {
+	font-size: 0.85rem;
+	font-weight: 700;
+	text-align: center;
+}
+
+.urna__voto-branco,
+.urna__voto-nulo {
+	margin: 1rem 0;
+
+	font-weight: 700;
+	font-size: 2.4rem;
+}
