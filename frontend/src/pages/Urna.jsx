@@ -40,8 +40,8 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 	}, [numero, quantidadeDigitos, votacao.cargoAtual, votacao.uf]);
 
 	function adicionarNumero(numeroClicado) {
-		setCandidato(null);
-		
+		setVotoBranco(null)
+
 		setNumero((numeroAtual) => {
 			if (numeroAtual.length >= quantidadeDigitos) {
 				return numeroAtual;

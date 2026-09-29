@@ -16,14 +16,14 @@ export default function DadosCandidato({ numero, candidato }) {
 						<dd>{candidato?.partido}</dd>
 					</dl>
 
-					{candidato?.vice && (
+					{(candidato?.cargo === "PRESIDENTE" || candidato?.cargo === "GOVERNADOR") && candidato?.vice && (
 						<dl>
 							<dt>Vice:</dt>
 							<dd>{candidato?.vice.nomeUrna}</dd>
 						</dl>
 					)}
 
-					{candidato?.suplentes && (
+					{candidato?.cargo === "SENADOR" && candidato?.suplentes && (
 						<dl>
 							<dt>1º Suplente:</dt>
 							<dd>{candidato?.suplentes[0]?.nomeUrna}</dd>
