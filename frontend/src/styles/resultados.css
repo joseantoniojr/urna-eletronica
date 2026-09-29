@@ -1,0 +1,279 @@
+.resultados {
+	min-height: 100vh;
+	padding: 32px 48px;
+	background: #f2f3f5;
+	font-family: Arial, sans-serif;
+	color: #202124;
+}
+
+.resultados__cabecalho {
+	max-width: 1400px;
+	margin: 0 auto 28px;
+	padding: 24px 28px;
+
+	background: #202124;
+	color: #fff;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	border-radius: 6px;
+}
+
+.resultados__cabecalho span,
+.resultados__cargo-cabecalho span,
+.resultados__estado-cabecalho span {
+	font-size: 12px;
+	font-weight: 700;
+	letter-spacing: 1.5px;
+	opacity: 0.7;
+}
+
+.resultados__cabecalho h1 {
+	margin: 6px 0 0;
+	font-size: 28px;
+	letter-spacing: 1px;
+}
+
+.resultados__cabecalho strong {
+	font-size: 14px;
+	letter-spacing: 1px;
+}
+
+.resultados__presidente,
+.resultados__estado {
+	max-width: 1400px;
+	margin: 0 auto 32px;
+}
+
+.resultados__estado-cabecalho {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	padding: 18px 24px;
+
+	background: #202124;
+	color: #fff;
+
+	border-radius: 6px 6px 0 0;
+}
+
+.resultados__estado-cabecalho h2 {
+	margin: 5px 0 0;
+	font-size: 24px;
+}
+
+.resultados__estado-cabecalho strong {
+	font-size: 24px;
+}
+
+.resultados__presidente .resultados__cargo,
+.resultados__estado .resultados__cargo {
+	border-radius: 0 0 6px 6px;
+}
+
+.resultados__estado .resultados__cargo {
+	margin-bottom: 20px;
+}
+
+.resultados__presidente .resultados__cargo {
+	margin-bottom: 0;
+}
+
+.resultados__cargo {
+	max-width: 1400px;
+	margin: 0 auto 24px;
+
+	background: #fff;
+
+	border: 1px solid #d9dce1;
+	border-radius: 6px;
+
+	overflow: hidden;
+
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+}
+
+.resultados__cargo-cabecalho {
+	padding: 18px 24px;
+
+	background: #e8eaed;
+
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+
+	border-bottom: 1px solid #d9dce1;
+}
+
+.resultados__cargo-cabecalho h2 {
+	margin: 4px 0 0;
+	font-size: 22px;
+}
+
+.resultados__cargo-cabecalho strong {
+	font-size: 22px;
+}
+
+.resultados__tabela-cabecalho,
+.resultados__linha {
+	display: grid;
+
+	grid-template-columns:
+		70px
+		minmax(250px, 1fr)
+		120px
+		100px
+		180px;
+
+	align-items: center;
+
+	column-gap: 20px;
+
+	padding: 14px 24px;
+}
+
+.resultados__tabela-cabecalho {
+	background: #f7f7f8;
+
+	border-bottom: 1px solid #ddd;
+
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 1px;
+
+	color: #666;
+}
+
+.resultados__linha {
+	min-height: 58px;
+
+	border-bottom: 1px solid #eee;
+
+	font-size: 15px;
+}
+
+.resultados__linha:last-child {
+	border-bottom: none;
+}
+
+.resultados__linha > strong:first-child {
+	font-size: 18px;
+}
+
+.resultados__linha > strong:nth-last-child(2) {
+	font-size: 17px;
+}
+
+.resultados__percentual {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+}
+
+.resultados__percentual span {
+	min-width: 55px;
+
+	font-weight: 600;
+
+	text-align: right;
+}
+
+.resultados__barra {
+	height: 8px;
+
+	min-width: 2px;
+
+	border-radius: 4px;
+
+	background: #202124;
+
+	flex: 1;
+}
+
+.resultados__resumo {
+	padding: 16px 24px;
+
+	background: #f7f7f8;
+
+	border-top: 1px solid #ddd;
+
+	display: flex;
+	gap: 32px;
+
+	font-size: 13px;
+
+	color: #555;
+}
+
+.resultados__resumo strong {
+	color: #202124;
+}
+
+@media (max-width: 900px) {
+	.resultados {
+		padding: 24px;
+	}
+
+	.resultados__tabela-cabecalho,
+	.resultados__linha {
+		grid-template-columns:
+			50px
+			minmax(180px, 1fr)
+			90px
+			80px
+			140px;
+
+		column-gap: 12px;
+
+		padding-left: 16px;
+		padding-right: 16px;
+	}
+}
+
+@media (max-width: 700px) {
+	.resultados {
+		padding: 16px;
+	}
+
+	.resultados__cabecalho {
+		padding: 20px;
+
+		align-items: flex-start;
+		gap: 20px;
+
+		flex-direction: column;
+	}
+
+	.resultados__cabecalho h1 {
+		font-size: 22px;
+	}
+
+	.resultados__estado-cabecalho {
+		padding: 16px;
+	}
+
+	.resultados__estado-cabecalho h2 {
+		font-size: 20px;
+	}
+
+	.resultados__estado-cabecalho strong {
+		font-size: 20px;
+	}
+
+	.resultados__tabela {
+		overflow-x: auto;
+	}
+
+	.resultados__tabela-cabecalho,
+	.resultados__linha {
+		min-width: 650px;
+	}
+
+	.resultados__resumo {
+		flex-wrap: wrap;
+		gap: 12px 24px;
+	}
+}

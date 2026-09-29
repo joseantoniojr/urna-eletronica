@@ -32,6 +32,10 @@ async function cancelarVotacao() {
 	return await apiPost("/eleicao/cancelar-votacao");
 }
 
+async function buscarResultados() {
+	return await apiGet("/eleicao/resultados");
+}
+
 export {
 	iniciarVotacao,
 	buscarUFs,
@@ -41,4 +45,5 @@ export {
 	registrarVotoNulo,
 	buscarCandidatoPorNumero,
 	cancelarVotacao,
+	buscarResultados,
 };
