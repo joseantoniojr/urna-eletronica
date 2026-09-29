@@ -13,6 +13,7 @@ import {
 	buscarTodosOsVotosController,
 	buscarResultadoController,
 	consultarVotacaoAtual,
+	cancelarVotacaoController,
 } from "../controllers/eleicao.controller.js";
 
 const router = Router();
@@ -30,5 +31,6 @@ router.get("/votos-nulos", buscarVotosNulosController);
 router.get("/votos-brancos", buscarVotosBrancosController);
 router.get("/votos", buscarTodosOsVotosController);
 router.get("/resultados", buscarResultadoController);
+router.post("/cancelar-votacao", cancelarVotacaoController);
 
 export default router;

@@ -1,0 +1,6 @@
+.urna__conteudo{
+    display: flex;
+    flex-direction: column;
+    gap: 3.2rem;
+    align-items: center;
+}

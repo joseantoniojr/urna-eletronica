@@ -219,6 +219,14 @@ function buscarResultado() {
 	});
 }
 
+function cancelarVotacao() {
+	if (!votacaoAtual) {
+		return;
+	}
+
+	votacaoAtual = null;
+}
+
 export {
 	buscarOrdemVotacao,
 	obterCargoAtual,
@@ -233,4 +241,5 @@ export {
 	buscarVotosBrancos,
 	buscarTodosOsVotos,
 	buscarResultado,
+	cancelarVotacao
 };

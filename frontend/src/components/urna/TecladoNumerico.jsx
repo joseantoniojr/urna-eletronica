@@ -10,7 +10,7 @@ export default function TecladoNumerico({
 	setCandidato,
 }) {
 	return (
-		<section aria-label='Teclado da urna'>
+		<section className='urna__teclado' aria-label='Teclado da urna'>
 			<div>
 				{numeros.map((num) => (
 					<button

@@ -4,7 +4,7 @@ import InstrucoesVoto from "./InstrucoesVoto.jsx";
 
 export default function TelaVotacao({ cargoAtual, numero, candidato, quantidadeDigitos, votoBranco, indexAtual, uf }) {
 	return (
-		<article>
+		<article className="urna__tela">
 			<CabecalhoVotacao indexAtual={indexAtual} uf={uf} />
 			<DadosCandidato
 				numero={numero}

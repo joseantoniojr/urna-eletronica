@@ -28,6 +28,10 @@ async function buscarCandidatoPorNumero(cargo, numero, uf) {
 	return await apiGet(`/candidatos/${cargo}/${numero}?uf=${uf}`);
 }
 
+async function cancelarVotacao() {
+	return await apiPost("/eleicao/cancelar-votacao");
+}
+
 export {
 	iniciarVotacao,
 	buscarUFs,
@@ -36,4 +40,5 @@ export {
 	registrarVotoBranco,
 	registrarVotoNulo,
 	buscarCandidatoPorNumero,
+	cancelarVotacao,
 };

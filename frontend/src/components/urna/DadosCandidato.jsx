@@ -45,7 +45,12 @@ export default function DadosCandidato({ numero, candidato, quantidadeDigitos, v
 					)}
 				</div>
 				<figure>
-					{/* <img src='https://api.dicebear.com/10.x/personas/svg' alt='avatar' /> */}
+					{candidatoVisivel && (
+						<img
+							src={`https://api.dicebear.com/10.x/personas/svg?seed=${candidatoVisivel.sqCandidato}`}
+							alt='Avatar do candidato'
+						/>
+					)}
 					<figcaption>{candidatoVisivel?.cargo}</figcaption>
 				</figure>
 			</div>

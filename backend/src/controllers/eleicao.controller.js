@@ -6,6 +6,7 @@ import {
 	buscarVotosBrancos,
 	buscarVotosCandidato,
 	buscarVotosNulos,
+	cancelarVotacao,
 	iniciarVotacaoService,
 	obterCargoAtual,
 	obterProximoCargo,
@@ -204,6 +205,11 @@ function buscarResultadoController(req, res) {
 	res.json(resultado);
 }
 
+function cancelarVotacaoController(req, res) {
+	cancelarVotacao();
+	res.json({ mensagem: "Votação cancelada" });
+}
+
 export {
 	listarOrdemVotacao,
 	cargoAtual,
@@ -218,4 +224,5 @@ export {
 	buscarVotosBrancosController,
 	buscarTodosOsVotosController,
 	buscarResultadoController,
+	cancelarVotacaoController,
 };
