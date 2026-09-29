@@ -1,18 +1,47 @@
-import { useState } from "react";
-import { NOMES_UF } from "../constants/estados.js";
+import { useEffect, useState } from "react";
 import { QTD_DIGITOS_CARGO } from "../constants/cargos.js";
-import { consultarVotacaoAtual, registrarVoto, registrarVotoBranco, registrarVotoNulo } from "../services/eleicao.js";
+import {
+	buscarCandidatoPorNumero,
+	consultarVotacaoAtual,
+	registrarVoto,
+	registrarVotoBranco,
+	registrarVotoNulo,
+} from "../services/eleicao.js";
+import TecladoNumerico from "../components/urna/TecladoNumerico.jsx";
+import TelaVotacao from "../components/urna/TelaVotacao.jsx";
+import IdentificacaoVotacao from "../components/urna/IdentificacaoVotacao.jsx";
 
 export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }) {
 	const numeros = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 	const [numero, setNumero] = useState("");
+	const [candidato, setCandidato] = useState(null);
 
 	const [votoBranco, setVotoBranco] = useState(false);
 
-	const cargoAtual = votacao.cargoAtual.replaceAll(" ", "_");
-	const quantidadeDigitos = QTD_DIGITOS_CARGO[cargoAtual];
+	const cargoAtualFormato = votacao.cargoAtual.replaceAll(" ", "_");
+	const quantidadeDigitos = QTD_DIGITOS_CARGO[cargoAtualFormato];
+
+	useEffect(() => {
+		if (numero.length !== quantidadeDigitos) {
+			return;
+		}
+
+		async function buscar() {
+			try {
+				const resposta = await buscarCandidatoPorNumero(votacao.cargoAtual, numero, votacao.uf);
+
+				setCandidato(resposta);
+			} catch {
+				setCandidato(null);
+			}
+		}
+
+		buscar();
+	}, [numero, quantidadeDigitos, votacao.cargoAtual, votacao.uf]);
 
 	function adicionarNumero(numeroClicado) {
+		setCandidato(null);
+		
 		setNumero((numeroAtual) => {
 			if (numeroAtual.length >= quantidadeDigitos) {
 				return numeroAtual;
@@ -23,6 +52,7 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 
 	function corrigirNumero() {
 		setNumero("");
+		setCandidato(null);
 		setVotoBranco(false);
 	}
 
@@ -30,7 +60,7 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 		if (votoBranco) {
 			await registrarVotoBranco();
 		} else {
-			if (!numero) {
+			if (!numero || !candidato) {
 				await registrarVotoNulo();
 			} else {
 				await registrarVoto(votacao.cargoAtual, numero, votacao.uf);
@@ -52,104 +82,18 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 
 	return (
 		<section>
-			<p>
-				Votando em {NOMES_UF[votacao.uf]} ({votacao.uf})
-			</p>
+			<IdentificacaoVotacao uf={votacao.uf} />
 
-			<section>
-				<section>
-					<article>
-						<header>
-							<ol>
-								<li>Deputado Federal</li>
-								<li>Deputado Estadual</li>
-								<li>Senador - 1ª vaga</li>
-								<li>Senador - 2ª vaga</li>
-								<li>Governador</li>
-								<li>Presidente</li>
-							</ol>
+			<TelaVotacao cargoAtual={votacao.cargoAtual} numero={numero} candidato={candidato} />
 
-							<p>Seu voto para</p>
-							<h2>{votacao.cargoAtual}</h2>
-						</header>
-						<section>
-							<div>
-								<div>
-									<div>
-										<span>Numero:</span>
-										<div>
-											<output>{numero}</output>
-										</div>
-									</div>
-									<dl>
-										<dt>Nome:</dt>
-										<dd>Marina Costa</dd>
-										<dt>Partido:</dt>
-										<dd>PDN</dd>
-									</dl>
-									<dl>
-										<dt>1º Suplente:</dt>
-										<dd>Marina Costa</dd>
-										<dt>2º Suplente</dt>
-										<dd>Xunda</dd>
-									</dl>
-								</div>
-								<figure>
-									{/* <img src='https://api.dicebear.com/10.x/personas/svg' alt='avatar' /> */}
-									<figcaption>Deputado Federal</figcaption>
-								</figure>
-							</div>
-						</section>
-						<footer>
-							<p>Aperte a tecla:</p>
-							<p>
-								<span>Verde</span> para <strong>Confirmar</strong> este voto
-							</p>
-							<p>
-								<span>Laranja</span> para <strong>Reiniciar</strong> este voto
-							</p>
-						</footer>
-					</article>
-				</section>
-
-				<section>
-					<section aria-label='Teclado da urna'>
-						<div>
-							{numeros.map((num) => (
-								<button
-									key={num}
-									type='button'
-									onClick={() => {
-										adicionarNumero(num);
-									}}
-								>
-									{num}
-								</button>
-							))}
-						</div>
-
-						<div>
-							<button
-								type='button'
-								onClick={() => {
-									setNumero("");
-									setVotoBranco(true);
-								}}
-							>
-								BRANCO
-							</button>
-
-							<button type='button' onClick={corrigirNumero}>
-								CORRIGE
-							</button>
-
-							<button type='button' onClick={confirmarVoto}>
-								CONFIRMA
-							</button>
-						</div>
-					</section>
-				</section>
-			</section>
+			<TecladoNumerico
+				numeros={numeros}
+				adicionarNumero={adicionarNumero}
+				corrigirNumero={corrigirNumero}
+				confirmarVoto={confirmarVoto}
+				setNumero={setNumero}
+				setVotoBranco={setVotoBranco}
+			/>
 
 			<button type='button'>Voltar ao início</button>
 		</section>

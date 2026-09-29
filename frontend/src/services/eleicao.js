@@ -24,4 +24,16 @@ async function registrarVotoNulo() {
 	return await apiPost("/eleicao/voto-nulo");
 }
 
-export { iniciarVotacao, buscarUFs, registrarVoto, consultarVotacaoAtual, registrarVotoBranco, registrarVotoNulo };
+async function buscarCandidatoPorNumero(cargo, numero, uf) {
+	return await apiGet(`/candidatos/${cargo}/${numero}?uf=${uf}`);
+}
+
+export {
+	iniciarVotacao,
+	buscarUFs,
+	registrarVoto,
+	consultarVotacaoAtual,
+	registrarVotoBranco,
+	registrarVotoNulo,
+	buscarCandidatoPorNumero,
+};

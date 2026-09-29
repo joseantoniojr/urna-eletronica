@@ -1,3 +1,4 @@
+import { CARGOS } from "../constants/eleicao.js";
 import {
 	buscarCandidatos,
 	buscarCandidatosPorCargo,
@@ -50,7 +51,9 @@ function listarCandidatoPorNumero(req, res) {
 		});
 	}
 
-	const candidato = buscarCandidatosPorNumero(cargo, numero, uf);
+	const ufBusca = cargo === CARGOS.PRESIDENTE ? "BR" : uf;
+
+	const candidato = buscarCandidatosPorNumero(cargo, numero, ufBusca);
 
 	if (!candidato) {
 		return res.status(404).json({
