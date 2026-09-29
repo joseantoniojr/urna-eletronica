@@ -1,3 +1,5 @@
+import { tocarSom } from "../../services/sons.js";
+
 export default function TecladoNumerico({
 	numeros,
 	adicionarNumero,
@@ -5,7 +7,7 @@ export default function TecladoNumerico({
 	confirmarVoto,
 	setNumero,
 	setVotoBranco,
-	setCandidato
+	setCandidato,
 }) {
 	return (
 		<section aria-label='Teclado da urna'>
@@ -15,6 +17,7 @@ export default function TecladoNumerico({
 						key={num}
 						type='button'
 						onClick={() => {
+							tocarSom("tecla");
 							adicionarNumero(num);
 						}}
 					>

@@ -10,6 +10,7 @@ import {
 import TecladoNumerico from "../components/urna/TecladoNumerico.jsx";
 import TelaVotacao from "../components/urna/TelaVotacao.jsx";
 import IdentificacaoVotacao from "../components/urna/IdentificacaoVotacao.jsx";
+import { tocarSom } from "../services/sons.js";
 
 export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }) {
 	const numeros = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
@@ -67,9 +68,12 @@ export default function Urna({ votacao, onAtualizarVotacao, onFinalizarVotacao }
 			}
 		}
 
+		tocarSom("confirma");
+
 		const novaVotacao = await consultarVotacaoAtual();
 
 		if (!novaVotacao) {
+			tocarSom("fim");
 			onFinalizarVotacao();
 			return;
 		}

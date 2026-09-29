@@ -8,7 +8,11 @@ export default function DadosCandidato({ numero, candidato, quantidadeDigitos, v
 					<div>
 						<span>Numero:</span>
 						<div>
-							<output>{numero}</output>
+							<output>
+								{Array.from({ length: quantidadeDigitos }).map((_, index) => (
+									<span key={index}>{numero[index] ?? ""}</span>
+								))}
+							</output>
 						</div>
 					</div>
 
