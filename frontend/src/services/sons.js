@@ -1,7 +1,7 @@
 const sons = {
-	tecla: new Audio("../../public/sounds/tecla.mp3"),
-	confirma: new Audio("../../public/sounds/confirma.mp3"),
-	fim: new Audio("../../public/sounds/fim.mp3"),
+	tecla: new Audio("/sounds/tecla.mp3"),
+	confirma: new Audio("/sounds/confirma.mp3"),
+	fim: new Audio("/sounds/fim.mp3"),
 };
 
 function tocarSom(tipo) {
@@ -10,7 +10,7 @@ function tocarSom(tipo) {
 	if (!som) return;
 
 	som.currentTime = 0;
-	som.play();
+	som.play().catch(() => {});
 }
 
 export { tocarSom };
