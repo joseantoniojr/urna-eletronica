@@ -4,23 +4,44 @@ import { NOMES_UF } from "../constants/estados.js";
 import { iniciarVotacao, buscarUFs } from "../services/eleicao.js";
 import "../styles/inicio.css";
 
-export default function Inicio({ onIniciarVotacao }) {
+export default function Inicio({ onIniciarVotacao, avisoInicial = "" }) {
 	const [ufs, setUfs] = useState([]);
 	const [ufSelecionada, setUfSelecionada] = useState("");
+	const [mensagem, setMensagem] = useState("");
+	const [iniciando, setIniciando] = useState(false);
 
 	useEffect(() => {
 		async function carregaUfs() {
-			const resposta = await buscarUFs();
+			try {
+				const resposta = await buscarUFs();
 
-			setUfs(resposta);
+				setUfs(resposta);
+			} catch {
+				setMensagem(
+					"Não foi possível carregar os estados. O servidor pode estar iniciando: aguarde alguns segundos e atualize a página.",
+				);
+			}
 		}
 
 		carregaUfs();
 	}, []);
 
 	async function iniciar() {
-		const resposta = await iniciarVotacao(ufSelecionada);
-		onIniciarVotacao(resposta);
+		setMensagem("");
+		setIniciando(true);
+
+		try {
+			const resposta = await iniciarVotacao(ufSelecionada);
+			onIniciarVotacao(resposta);
+		} catch (erro) {
+			if (erro.message.includes("Votação em andamento")) {
+				setMensagem("Já existe uma votação em andamento. Aguarde a pessoa terminar e tente novamente.");
+			} else {
+				setMensagem("Não foi possível iniciar a votação. Tente novamente em instantes.");
+			}
+		} finally {
+			setIniciando(false);
+		}
 	}
 
 	return (
@@ -52,8 +73,10 @@ export default function Inicio({ onIniciarVotacao }) {
 					</select>
 
 					<button type='button' disabled={!ufSelecionada} onClick={iniciar}>
-						INICIAR VOTAÇÃO
+						{iniciando ? "INICIANDO..." : "INICIAR VOTAÇÃO"}
 					</button>
+
+					{mensagem && <p className='inicio__mensagem'>{mensagem || avisoInicial}</p>}
 				</div>
 			</section>
 		</section>

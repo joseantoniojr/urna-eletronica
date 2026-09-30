@@ -99,3 +99,14 @@
 	background: #c7c9cc;
 	cursor: not-allowed;
 }
+
+.inicio__mensagem {
+	margin-top: 20px;
+	padding: 12px 14px;
+	border-left: 4px solid #eec909;
+	border-radius: 4px;
+	background: #fff;
+	color: #202124;
+	font-size: 1.4rem;
+	line-height: 1.4;
+}
